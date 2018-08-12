@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcUaHelper", "OpcUaHelper\OpcUaHelper.csproj", "{7693C6F9-3846-4310-B0F1-194874C5047D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcUaHelper.Demo", "OpcUaHelper.Demo\OpcUaHelper.Demo.csproj", "{97C6ACDD-4A48-4DDB-8BAD-A8B67353525A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7693C6F9-3846-4310-B0F1-194874C5047D} = {7693C6F9-3846-4310-B0F1-194874C5047D}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,10 @@ Global
 		{7693C6F9-3846-4310-B0F1-194874C5047D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7693C6F9-3846-4310-B0F1-194874C5047D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7693C6F9-3846-4310-B0F1-194874C5047D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97C6ACDD-4A48-4DDB-8BAD-A8B67353525A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97C6ACDD-4A48-4DDB-8BAD-A8B67353525A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97C6ACDD-4A48-4DDB-8BAD-A8B67353525A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97C6ACDD-4A48-4DDB-8BAD-A8B67353525A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
