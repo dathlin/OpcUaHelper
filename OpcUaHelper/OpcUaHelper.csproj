@@ -147,5 +147,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FormUtils.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

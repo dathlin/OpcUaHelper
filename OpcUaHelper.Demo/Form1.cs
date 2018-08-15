@@ -35,7 +35,7 @@ namespace OpcUaHelper.Demo
 
 
 
-        private OpcUaClient opcUaClient = new OpcUaClient( );
+        private OpcUaClient opcUaClient;
 
         private void button1_Click( object sender, EventArgs e )
         {

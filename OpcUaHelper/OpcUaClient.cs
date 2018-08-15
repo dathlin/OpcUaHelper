@@ -1,10 +1,12 @@
 ﻿using Opc.Ua;
 using Opc.Ua.Client;
+
+#if !NETSTANDARD2_0
 using Opc.Ua.Client.Controls;
+#endif
 using Opc.Ua.Configuration;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +15,7 @@ namespace OpcUaHelper
 {
 
     /// <summary>
-    /// 一个二次封装了的OPC UA库，
+    /// 一个二次封装了的OPC UA库，支持从opc ua服务器读写节点数据，批量读写，订阅，批量订阅，历史数据读取，方法调用操作。
     /// </summary>
     public class OpcUaClient
     {
@@ -114,7 +116,7 @@ namespace OpcUaHelper
         {
             // disconnect from existing session.
             Disconnect( );
-            
+
             if (m_configuration == null)
             {
                 throw new ArgumentNullException( "m_configuration" );
@@ -176,7 +178,7 @@ namespace OpcUaHelper
             // raise an event.
             DoConnectComplete( null );
         }
-        
+
 
         #endregion
 
@@ -244,7 +246,11 @@ namespace OpcUaHelper
             }
             catch (Exception exception)
             {
+#if !NETSTANDARD2_0
                 ClientUtils.HandleException( OpcUaName, exception );
+#else
+                throw;
+#endif
             }
         }
 
@@ -273,10 +279,14 @@ namespace OpcUaHelper
             }
             catch (Exception exception)
             {
+#if !NETSTANDARD2_0
                 ClientUtils.HandleException( OpcUaName, exception );
+#else
+                throw;
+#endif
             }
         }
-        
+
 
         #endregion
 
@@ -337,7 +347,6 @@ namespace OpcUaHelper
         /// <summary>
         /// The number of seconds between reconnect attempts (0 means reconnect is disabled).
         /// </summary>
-        [DefaultValue( 10 )]
         public int ReconnectPeriod
         {
             get { return m_reconnectPeriod; }
@@ -506,7 +515,7 @@ namespace OpcUaHelper
         /// <summary>
         /// read several value nodes from server
         /// </summary>
-        /// <param name="Tags">all Tags</param>
+        /// <param name="nodeIds">all NodeIds</param>
         /// <returns>all values</returns>
         public List<DataValue> ReadNodes( NodeId[] nodeIds )
         {
@@ -540,7 +549,7 @@ namespace OpcUaHelper
         /// <summary>
         /// read several value nodes from server
         /// </summary>
-        /// <param name="Tags">all Tags</param>
+        /// <param name="tags">所以的节点数组信息</param>
         /// <returns>all values</returns>
         public List<T> ReadNodes<T>( string[] tags )
         {
@@ -550,7 +559,7 @@ namespace OpcUaHelper
             {
                 nodesToRead.Add( new ReadValueId( )
                 {
-                    NodeId = new NodeId(tags[i]),
+                    NodeId = new NodeId( tags[i] ),
                     AttributeId = Attributes.Value
                 } );
             }
@@ -580,9 +589,9 @@ namespace OpcUaHelper
         /// <summary>
         /// write a note to server(you should use try catch)
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="tag"></param>
-        /// <param name="value"></param>
+        /// <typeparam name="T">The type of tag to write on</typeparam>
+        /// <param name="tag">节点名称</param>
+        /// <param name="value">值</param>
         /// <returns>if success True,otherwise False</returns>
         public bool WriteNode<T>( string tag, T value )
         {
@@ -625,8 +634,7 @@ namespace OpcUaHelper
         /// Write a value on the specified opc tag asynchronously
         /// </summary>
         /// <typeparam name="T">The type of tag to write on</typeparam>
-        /// <param name="tag">The fully-qualified identifier of the tag. You can specify a subfolder by using a comma delimited name.
-        /// E.g: the tag `foo.bar` writes on the tag `bar` on the folder `foo`</param>
+        /// <param name="tag">The fully-qualified identifier of the tag. You can specify a subfolder by using a comma delimited name. E.g: the tag `foo.bar` writes on the tag `bar` on the folder `foo`</param>
         /// <param name="value">The value for the item to write</param>
         public Task<bool> WriteNodeAsync<T>( string tag, T value )
         {
@@ -831,7 +839,7 @@ namespace OpcUaHelper
         /// 新增一批订阅，需要指定订阅的关键字，订阅的tag名数组，以及回调方法
         /// </summary>
         /// <param name="key">关键字</param>
-        /// <param name="tag">tag</param>
+        /// <param name="tags">节点名称数组</param>
         /// <param name="callback">回调方法</param>
         public void AddSubscription( string key, string[] tags, Action<string, MonitoredItem, MonitoredItemNotificationEventArgs> callback )
         {
@@ -845,7 +853,7 @@ namespace OpcUaHelper
             m_subscription.Priority = 100;
             m_subscription.DisplayName = key;
 
-            
+
             for (int i = 0; i < tags.Length; i++)
             {
                 var item = new MonitoredItem
@@ -861,11 +869,11 @@ namespace OpcUaHelper
                 };
                 m_subscription.AddItem( item );
             }
-            
+
 
             m_session.AddSubscription( m_subscription );
             m_subscription.Create( );
-            
+
             if (dic_subscriptions.ContainsKey( key ))
             {
                 // remove 
@@ -1295,7 +1303,7 @@ namespace OpcUaHelper
         /// <param name="tagParent">方法的父节点tag</param>
         /// <param name="tag">方法的节点tag</param>
         /// <param name="args">传递的参数</param>
-        /// <returns><输出的结果值/returns>
+        /// <returns>输出的结果值</returns>
         public object[] CallMethodByNodeId( string tagParent, string tag, params object[] args )
         {
             if (m_session == null)
@@ -1348,7 +1356,7 @@ namespace OpcUaHelper
         private EventHandler m_ConnectComplete;
         private EventHandler<OpcUaStatusEventArgs> m_OpcStatusChange;
 
-        private Dictionary<string,Subscription> dic_subscriptions;        // 系统所有的节点信息
+        private Dictionary<string, Subscription> dic_subscriptions;        // 系统所有的节点信息
         #endregion
 
     }

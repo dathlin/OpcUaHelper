@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OpcUaHelper
 {
+    /// <summary>
+    /// OPC UA的状态更新消息
+    /// </summary>
     public class OpcUaStatusEventArgs
     {
 
