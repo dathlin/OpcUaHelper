@@ -133,6 +133,7 @@
     <Reference Include="System.Diagnostics.DiagnosticSource">
       <HintPath>..\Dll\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -142,13 +143,72 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\FormBrowseServer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormBrowseServer.designer.cs">
+      <DependentUpon>FormBrowseServer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormConnectSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormConnectSelect.Designer.cs">
+      <DependentUpon>FormConnectSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TreeViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="OpcUaClient.cs" />
     <Compile Include="OpcUaStatusEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FormUtils.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\" />
+    <Content Include="img\Activity_16xLG.png" />
+    <Content Include="img\brackets_Square_16xMD.png" />
+    <Content Include="img\ClassIcon.ico" />
+    <Content Include="img\ClassIcon.png" />
+    <Content Include="img\Class_489.png" />
+    <Content Include="img\Cloud_16xLG.png" />
+    <Content Include="img\Copy_6524.png" />
+    <Content Include="img\Delegate_8339.png" />
+    <Content Include="img\docview_xaml_on_16x16.png" />
+    <Content Include="img\Enum_582.png" />
+    <Content Include="img\Event_594.png" />
+    <Content Include="img\Event_594_exp.png" />
+    <Content Include="img\glasses_16xLG.png" />
+    <Content Include="img\grid_Data_16xLG.png" />
+    <Content Include="img\lightningBolt_16xLG.png" />
+    <Content Include="img\ListView_687.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\Method_636.png" />
+    <Content Include="img\Module_648.png" />
+    <Content Include="img\RegistryEditor_5838.ico" />
+    <Content Include="img\SingleMessage_5727.ico" />
+    <Content Include="img\Structure_507.png" />
+    <Content Include="img\Table_748.png" />
+    <Content Include="img\Tag_7213.png" />
+    <Content Include="img\usbcontroller.png" />
+    <Content Include="img\UserInterfaceEditor_5845.ico" />
+    <Content Include="img\VirtualMachine.png" />
+    <Content Include="img\WindowsForm_817.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\FormBrowseServer.resx">
+      <DependentUpon>FormBrowseServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormConnectSelect.resx">
+      <DependentUpon>FormConnectSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

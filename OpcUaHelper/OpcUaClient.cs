@@ -902,8 +902,23 @@ namespace OpcUaHelper
                 dic_subscriptions[key].Dispose( );
                 dic_subscriptions.Remove( key );
             }
-
         }
+
+
+        /// <summary>
+        /// 移除所有的订阅消息
+        /// </summary>
+        public void RemoveAllSubscription( )
+        {
+            foreach (var item in dic_subscriptions)
+            {
+                item.Value.Delete( true );
+                m_session.RemoveSubscription( item.Value );
+                item.Value.Dispose( );
+            }
+            dic_subscriptions.Clear( );
+        }
+
 
         #endregion
 
@@ -1022,8 +1037,8 @@ namespace OpcUaHelper
         /// <summary>
         /// 浏览一个节点的引用
         /// </summary>
-        /// <param name="tag"></param>
-        /// <returns></returns>
+        /// <param name="tag">节点值</param>
+        /// <returns>引用节点描述</returns>
         public ReferenceDescription[] BrowseNodeReference( string tag )
         {
             NodeId sourceId = new NodeId( tag );
@@ -1065,8 +1080,8 @@ namespace OpcUaHelper
         /// <summary>
         /// 读取一个节点的所有属性
         /// </summary>
-        /// <param name="tag"></param>
-        /// <returns></returns>
+        /// <param name="tag">节点信息</param>
+        /// <returns>节点的特性值</returns>
         public OpcNodeAttribute[] ReadNoteAttributes( string tag )
         {
             NodeId sourceId = new NodeId( tag );

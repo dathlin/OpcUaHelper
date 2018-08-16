@@ -10,9 +10,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcUaHelper.Demo", "OpcUaHe
 		{7693C6F9-3846-4310-B0F1-194874C5047D} = {7693C6F9-3846-4310-B0F1-194874C5047D}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcUaHelper.Standard", "OpcUaHelper.Standard\OpcUaHelper.Standard.csproj", "{F90F66E3-9609-49AF-A13E-FA83032D5554}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpcUaHelper.Standard", "OpcUaHelper.Standard\OpcUaHelper.Standard.csproj", "{F90F66E3-9609-49AF-A13E-FA83032D5554}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcUaHelper.NetCoreDemo", "OpcUaHelper.NetCoreDemo\OpcUaHelper.NetCoreDemo.csproj", "{108257A6-3746-4BD2-8900-8D74A2BA9192}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpcUaHelper.NetCoreDemo", "OpcUaHelper.NetCoreDemo\OpcUaHelper.NetCoreDemo.csproj", "{108257A6-3746-4BD2-8900-8D74A2BA9192}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcUaHelper.Tool", "OpcUaHelper.Tool\OpcUaHelper.Tool.csproj", "{80A2134B-31DB-4F41-AD9C-B74A7C0B0C57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{108257A6-3746-4BD2-8900-8D74A2BA9192}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{108257A6-3746-4BD2-8900-8D74A2BA9192}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{108257A6-3746-4BD2-8900-8D74A2BA9192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80A2134B-31DB-4F41-AD9C-B74A7C0B0C57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80A2134B-31DB-4F41-AD9C-B74A7C0B0C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80A2134B-31DB-4F41-AD9C-B74A7C0B0C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80A2134B-31DB-4F41-AD9C-B74A7C0B0C57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
