@@ -431,7 +431,7 @@ namespace OpcUaHelper.Forms
                          //     child.Nodes.Add(new TreeNode());
                          // }
 
-                         if (checkBox1.Checked)
+                         if (!checkBox1.Checked)
                          {
                              if (GetReferenceDescriptionCollection( (NodeId)target.NodeId ).Count > 0)
                              {
@@ -519,6 +519,7 @@ namespace OpcUaHelper.Forms
         {
             try
             {
+                RemoveAllSubscript( );
                 // get the source for the node.
                 ReferenceDescription reference = e.Node.Tag as ReferenceDescription;
 
@@ -526,7 +527,7 @@ namespace OpcUaHelper.Forms
                 {
                     return;
                 }
-                
+
                 // populate children.
                 ShowMember((NodeId)reference.NodeId);
             }
@@ -789,21 +790,112 @@ namespace OpcUaHelper.Forms
 
 
         #endregion
-        
+
         #region 订阅刷新块
-        
+
+
+        private List<string> subNodeIds = new List<string>( );
+        private bool isSingleValueSub = false;
+
         private void RemoveAllSubscript( )
         {
             m_OpcUaClient?.RemoveAllSubscription( );
         }
 
 
-        private void button2_Click(object sender, EventArgs e)
+        private void SubCallBack( string key, MonitoredItem monitoredItem, MonitoredItemNotificationEventArgs eventArgs )
         {
-            if(m_OpcUaClient != null)
+            if (InvokeRequired)
+            {
+                Invoke( new Action<string, MonitoredItem, MonitoredItemNotificationEventArgs>( SubCallBack ), key, monitoredItem, eventArgs );
+                return;
+            }
+
+
+            MonitoredItemNotification notification = eventArgs.NotificationValue as MonitoredItemNotification;
+            string nodeId = monitoredItem.StartNodeId.ToString( );
+
+            int index = subNodeIds.IndexOf( nodeId );
+            if (index >= 0)
+            {
+                if (isSingleValueSub)
+                {
+                    if (notification.Value.WrappedValue.TypeInfo?.ValueRank == ValueRanks.OneDimension)
+                    {
+                        Array array = notification.Value.WrappedValue.Value as Array;
+                        int i = 0;
+                        foreach (object obj in array)
+                        {
+                            DataGridViewRow dgvr = dataGridView1.Rows[i];
+                            dgvr.Cells[2].Value = obj;
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        dataGridView1.Rows[index].Cells[2].Value = notification.Value.WrappedValue.Value;
+                    }
+                }
+                else
+                {
+                    dataGridView1.Rows[index].Cells[2].Value = notification.Value.WrappedValue.Value;
+                }
+            }
+        }
+
+
+        private async void button2_Click(object sender, EventArgs e)
+        {
+            if (m_OpcUaClient != null)
             {
                 RemoveAllSubscript( );
+                if (button2.BackColor != Color.LimeGreen)
+                {
+                    button2.BackColor = Color.LimeGreen;
+                    // 判断当前的选择
+                    if (string.IsNullOrEmpty( textBox_nodeId.Text )) return;
 
+
+
+                    int index = 0;
+                    ReferenceDescriptionCollection references;
+                    try
+                    {
+                        references = await Task.Run( ( ) =>
+                        {
+                            return GetReferenceDescriptionCollection( new NodeId( textBox_nodeId.Text ) );
+                        } );
+                    }
+                    catch (Exception exception)
+                    {
+                        ClientUtils.HandleException( Text, exception );
+                        return;
+                    }
+
+                    subNodeIds = new List<string>( );
+                    if (references?.Count > 0)
+                    {
+                        isSingleValueSub = false;
+                        // 获取所有要订阅的子节点
+                        for (int ii = 0; ii < references.Count; ii++)
+                        {
+                            ReferenceDescription target = references[ii];
+                            subNodeIds.Add( ((NodeId)target.NodeId).ToString( ) );
+                        }
+                    }
+                    else
+                    {
+                        isSingleValueSub = true;
+                        // 子节点没有数据的情况
+                        subNodeIds.Add( textBox_nodeId.Text );
+                    }
+
+                    m_OpcUaClient.AddSubscription( "subTest", subNodeIds.ToArray( ), SubCallBack );
+                }
+                else
+                {
+                    button2.BackColor = SystemColors.Control;
+                }
             }
         }
 
