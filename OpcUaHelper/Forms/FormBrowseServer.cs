@@ -64,8 +64,6 @@ namespace OpcUaHelper.Forms
             if (!string.IsNullOrEmpty(textBox1.Text)) textBox1.ReadOnly = true;
             // Opc Ua 服务的初始化
             OpcUaClientInitialization();
-            // 后台自动线程刷新块
-            ThreadAutoUpdateInitialization();
         }
 
 
@@ -124,7 +122,6 @@ namespace OpcUaHelper.Forms
         private void FormBrowseServer_FormClosing(object sender, FormClosingEventArgs e)
         {
             m_OpcUaClient.Disconnect();
-            thread_auto_update?.Abort();
         }
 
         #endregion
@@ -372,28 +369,29 @@ namespace OpcUaHelper.Forms
             }
         }
 
-        private void userIdentityToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-        
 
 
         #endregion
 
         #region Press Connect Click Button
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click( object sender, EventArgs e )
         {
             // connect to server
-            try
+            using (FormConnectSelect formConnectSelect = new FormConnectSelect( m_OpcUaClient ))
             {
-                m_OpcUaClient.ConnectServer(textBox1.Text);
-                button1.BackColor = Color.LimeGreen;
-            }
-            catch (Exception ex)
-            {
-                ClientUtils.HandleException(Text, ex);
+                if (formConnectSelect.ShowDialog( ) == DialogResult.OK)
+                {
+                    try
+                    {
+                        m_OpcUaClient.ConnectServer( textBox1.Text );
+                        button1.BackColor = Color.LimeGreen;
+                    }
+                    catch (Exception ex)
+                    {
+                        ClientUtils.HandleException( Text, ex );
+                    }
+                }
             }
         }
 
@@ -432,11 +430,19 @@ namespace OpcUaHelper.Forms
                          // {
                          //     child.Nodes.Add(new TreeNode());
                          // }
-                         
-                         if (GetReferenceDescriptionCollection((NodeId)target.NodeId).Count > 0)
+
+                         if (checkBox1.Checked)
                          {
-                             child.Nodes.Add(new TreeNode());
+                             if (GetReferenceDescriptionCollection( (NodeId)target.NodeId ).Count > 0)
+                             {
+                                child.Nodes.Add( new TreeNode( ) );
+                             }
                          }
+                         else
+                         {
+                             child.Nodes.Add( new TreeNode( ) );
+                         }
+                         
 
                          list.Add(child);
                      }
@@ -520,8 +526,7 @@ namespace OpcUaHelper.Forms
                 {
                     return;
                 }
-
-                if (m_AutoUpdate) button2.PerformClick();
+                
                 // populate children.
                 ShowMember((NodeId)reference.NodeId);
             }
@@ -576,7 +581,6 @@ namespace OpcUaHelper.Forms
             }
             catch(Exception exception)
             {
-                StopRefresh( );
                 ClientUtils.HandleException(Text, exception);
                 return;
             }
@@ -631,7 +635,6 @@ namespace OpcUaHelper.Forms
                 }
                 catch (Exception exception)
                 {
-                    StopRefresh( );
                     ClientUtils.HandleException(Text, exception);
                     return;
                 }
@@ -787,71 +790,20 @@ namespace OpcUaHelper.Forms
 
         #endregion
         
-        #region 后台线程刷新块
-
-        private System.Threading.Thread thread_auto_update;
-        private bool m_AutoUpdate = false;
-
-        private void ThreadAutoUpdateInitialization()
+        #region 订阅刷新块
+        
+        private void RemoveAllSubscript( )
         {
-            thread_auto_update = new System.Threading.Thread(ThreadAutoUpdate);
-            thread_auto_update.IsBackground = true;
-            thread_auto_update.Start();
+            m_OpcUaClient?.RemoveAllSubscription( );
         }
 
-        private void ThreadAutoUpdate()
-        {
-            Action action = new Action(OneTimeAccess);
-            while(true)
-            {
-                if(m_AutoUpdate)
-                {
-                    Invoke(action);
-                }
-                System.Threading.Thread.Sleep(500);
-            }
-        }
-
-        private void OneTimeAccess()
-        {
-            if (IsHandleCreated)
-            {
-                // 刷新显示
-                if (!string.IsNullOrEmpty( textBox_nodeId.Text ))
-                {
-                    dataGridView1.SuspendLayout( );
-                    ShowMember( new NodeId( textBox_nodeId.Text ) );
-                    dataGridView1.ResumeLayout( );
-                }
-            }
-        }
-
-        private void StopRefresh()
-        {
-            if(m_AutoUpdate)
-            {
-                m_AutoUpdate = !m_AutoUpdate;
-                if (m_AutoUpdate)
-                {
-                    button2.BackColor = Color.LimeGreen;
-                }
-                else
-                {
-                    button2.BackColor = SystemColors.Control;
-                }
-            }
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            m_AutoUpdate = !m_AutoUpdate;
-            if (m_AutoUpdate)
+            if(m_OpcUaClient != null)
             {
-                button2.BackColor = Color.LimeGreen;
-            }
-            else
-            {
-                button2.BackColor = SystemColors.Control;
+                RemoveAllSubscript( );
+
             }
         }
 

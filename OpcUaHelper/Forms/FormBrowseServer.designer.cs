@@ -58,6 +58,7 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.discoverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -110,6 +111,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox1);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBox2);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.BrowseNodesTV);
@@ -272,9 +274,9 @@
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button2.Location = new System.Drawing.Point(0, 1);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 25);
+            this.button2.Size = new System.Drawing.Size(106, 25);
             this.button2.TabIndex = 7;
-            this.button2.Text = " refresh";
+            this.button2.Text = " Subscript";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -356,16 +358,27 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // discoverToolStripMenuItem
             // 
             this.discoverToolStripMenuItem.Name = "discoverToolStripMenuItem";
-            this.discoverToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.discoverToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.discoverToolStripMenuItem.Text = "Discover";
             this.discoverToolStripMenuItem.Click += new System.EventHandler(this.discoverToolStripMenuItem_Click);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(201, 6);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(93, 21);
+            this.checkBox1.TabIndex = 7;
+            this.checkBox1.Text = "Fast Access";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // FormBrowseServer
             // 
@@ -437,5 +450,6 @@
         private System.Windows.Forms.ToolStripMenuItem discoverToolStripMenuItem;
         private System.Windows.Forms.Label label_time_spend;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

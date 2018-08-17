@@ -15,6 +15,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpcUaHelper.NetCoreDemo", "OpcUaHelper.NetCoreDemo\OpcUaHelper.NetCoreDemo.csproj", "{108257A6-3746-4BD2-8900-8D74A2BA9192}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcUaHelper.Tool", "OpcUaHelper.Tool\OpcUaHelper.Tool.csproj", "{80A2134B-31DB-4F41-AD9C-B74A7C0B0C57}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7693C6F9-3846-4310-B0F1-194874C5047D} = {7693C6F9-3846-4310-B0F1-194874C5047D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

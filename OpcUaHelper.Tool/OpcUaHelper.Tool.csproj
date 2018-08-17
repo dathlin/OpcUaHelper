@@ -33,7 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpcUaHelper">
+    <Reference Include="OpcUaHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\OpcUaHelper\bin\Debug\OpcUaHelper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
