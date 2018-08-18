@@ -1,4 +1,6 @@
 # OpcUaHelper
+![Build status](https://img.shields.io/badge/Build-Success-green.svg) [![NuGet Status](https://img.shields.io/nuget/v/OpcUaHelper.svg)](https://www.nuget.org/packages/OpcUaHelper/) ![NuGet Download](https://img.shields.io/nuget/dt/OpcUaHelper.svg) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](http://shang.qq.com/wpa/qunwpa?idkey=2278cb9c2e0c04fc305c43e41acff940499a34007dfca9e83a7291e726f9c4e8) [![NetFramework](https://img.shields.io/badge/Language-C%23%207.0-orange.svg)](https://blogs.msdn.microsoft.com/dotnet/2016/08/24/whats-new-in-csharp-7-0/) [![Visual Studio](https://img.shields.io/badge/Visual%20Studio-2017-red.svg)](https://www.visualstudio.com/zh-hans/) ![License status](https://img.shields.io/badge/License-LGPL3.0-yellow.svg) ![copyright status](https://img.shields.io/badge/CopyRight-Richard.Hu-brightgreen.svg) 
+
 一个通用的二次封装的opc ua客户端类库，基于.net 4.6.1创建，基于官方opc ua基金会跨平台库创建，方便的实现和OPC Server进行数据交互。本类库每个几个月就同步官方的类库。
 
 
@@ -15,6 +17,10 @@ formBrowseServer.ShowDialog( );
 ```
 界面效果如下，包含了节点的查看，订阅操作，双击值表格，还可以修改服务器的值（如果这个节点支持修改的话），查看节点的信息：
 ![Picture](https://raw.githubusercontent.com/dathlin/OpcUaHelper/master/Imgs/Monitor.png)
+
+## Server Prepare
+如果你没有opc ua的服务器的话，可以参照本示例的服务器，本示例的服务器是项目 [SharpNodeSettings](https://github.com/dathlin/SharpNodeSettings) 的示例。可以直接下载这个项目运行服务器软件。
+
 
 ## OpcUaClient
 实例化操作
