@@ -375,7 +375,7 @@ namespace OpcUaHelper.Forms
 
         #region Press Connect Click Button
 
-        private void button1_Click( object sender, EventArgs e )
+        private async void button1_Click( object sender, EventArgs e )
         {
             // connect to server
             using (FormConnectSelect formConnectSelect = new FormConnectSelect( m_OpcUaClient ))
@@ -384,7 +384,7 @@ namespace OpcUaHelper.Forms
                 {
                     try
                     {
-                        m_OpcUaClient.ConnectServer( textBox1.Text );
+                        await m_OpcUaClient.ConnectServer( textBox1.Text );
                         button1.BackColor = Color.LimeGreen;
                     }
                     catch (Exception ex)
@@ -855,9 +855,7 @@ namespace OpcUaHelper.Forms
                     // 判断当前的选择
                     if (string.IsNullOrEmpty( textBox_nodeId.Text )) return;
 
-
-
-                    int index = 0;
+                    
                     ReferenceDescriptionCollection references;
                     try
                     {

@@ -36,6 +36,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\OpcUaHelper\bin\Debug\Opc.Ua.Client.dll</HintPath>
     </Reference>
+    <Reference Include="Opc.Ua.ClientControls, Version=1.2.336.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dll\Opc.Ua.ClientControls.dll</HintPath>
+    </Reference>
     <Reference Include="Opc.Ua.Core">
       <HintPath>..\OpcUaHelper\bin\Debug\Opc.Ua.Core.dll</HintPath>
     </Reference>

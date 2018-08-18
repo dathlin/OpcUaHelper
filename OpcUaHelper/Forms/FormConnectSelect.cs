@@ -17,7 +17,7 @@ namespace OpcUaHelper.Forms
         public FormConnectSelect( OpcUaClient opcUaClient )
         {
             InitializeComponent( );
-            this.opcUaClient = opcUaClient;
+            this.m_OpcUaClient = opcUaClient;
         }
 
         private void FormConnectSelect_Load( object sender, EventArgs e )
@@ -26,12 +26,12 @@ namespace OpcUaHelper.Forms
         }
 
 
-        private OpcUaClient opcUaClient;
+        private OpcUaClient m_OpcUaClient;
 
         private void button1_Click( object sender, EventArgs e )
         {
             // 匿名登录
-            opcUaClient.UserIdentity = new UserIdentity( new AnonymousIdentityToken( ) );
+            m_OpcUaClient.UserIdentity = new UserIdentity( new AnonymousIdentityToken( ) );
             DialogResult = DialogResult.OK;
             return;
         }
@@ -39,7 +39,7 @@ namespace OpcUaHelper.Forms
         private void button2_Click( object sender, EventArgs e )
         {
             // 用户名密码登录
-            opcUaClient.UserIdentity = new UserIdentity( textBox1.Text, textBox2.Text );
+            m_OpcUaClient.UserIdentity = new UserIdentity( textBox1.Text, textBox2.Text );
             DialogResult = DialogResult.OK;
             return;
         }
@@ -50,7 +50,7 @@ namespace OpcUaHelper.Forms
             try
             {
                 X509Certificate2 certificate = new X509Certificate2( textBox4.Text, textBox3.Text, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.Exportable );
-                opcUaClient.UserIdentity = new UserIdentity( certificate );
+                m_OpcUaClient.UserIdentity = new UserIdentity( certificate );
                 DialogResult = DialogResult.OK;
                 return;
             }

@@ -100,14 +100,13 @@ namespace OpcUaHelper
         /// <summary>
         /// connect to server
         /// </summary>
-        /// <param name="serverUrl"></param>
-        public async void ConnectServer( string serverUrl )
+        /// <param name="serverUrl">remote url</param>
+        public async Task ConnectServer( string serverUrl )
         {
             m_session = await Connect( serverUrl );
         }
 
-
-
+        
         /// <summary>
         /// Creates a new session.
         /// </summary>
@@ -133,7 +132,7 @@ namespace OpcUaHelper
                 endpoint,
                 false,
                 false,
-                (String.IsNullOrEmpty( OpcUaName )) ? m_configuration.ApplicationName : OpcUaName,
+                (string.IsNullOrEmpty( OpcUaName )) ? m_configuration.ApplicationName : OpcUaName,
                 60000,
                 UserIdentity,
                 new string[] { } );
