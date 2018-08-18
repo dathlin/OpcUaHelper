@@ -21,6 +21,7 @@ formBrowseServer.ShowDialog( );
 ## Server Prepare
 如果你没有opc ua的服务器的话，可以参照本示例的服务器，本示例的服务器是项目 [SharpNodeSettings](https://github.com/dathlin/SharpNodeSettings) 的示例。可以直接下载这个项目运行服务器软件。
 
+或者选择在线的客户端测试: opc.tcp://118.24.36.220:62547/DataAccessServer
 
 ## OpcUaClient
 实例化操作
