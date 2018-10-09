@@ -33,7 +33,7 @@ namespace OpcUaHelper
             {
                 if (ServiceResult.IsGood( eventArgs.Error ))
                     eventArgs.Accept = true;
-                else if ((eventArgs.Error.StatusCode.Code == StatusCodes.BadCertificateUntrusted) && true)
+                else if (eventArgs.Error.StatusCode.Code == StatusCodes.BadCertificateUntrusted)
                     eventArgs.Accept = true;
                 else
                     throw new Exception( string.Format( "Failed to validate certificate with error code {0}: {1}", eventArgs.Error.Code, eventArgs.Error.AdditionalInfo ) );
@@ -60,6 +60,8 @@ namespace OpcUaHelper
                     SecurityConfiguration = new SecurityConfiguration
                     {
                         AutoAcceptUntrustedCertificates = true,
+                        RejectSHA1SignedCertificates = false,
+                        MinimumCertificateKeySize = 1024,
                     },
 
                     TransportQuotas = new TransportQuotas
