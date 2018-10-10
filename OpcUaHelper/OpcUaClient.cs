@@ -39,6 +39,14 @@ namespace OpcUaHelper
                     throw new Exception( string.Format( "Failed to validate certificate with error code {0}: {1}", eventArgs.Error.Code, eventArgs.Error.AdditionalInfo ) );
             };
 
+            SecurityConfiguration securityConfigurationcv = new SecurityConfiguration
+            {
+                AutoAcceptUntrustedCertificates = true,
+                RejectSHA1SignedCertificates = false,
+                MinimumCertificateKeySize = 1024,
+            };
+            certificateValidator.Update( securityConfigurationcv );
+
             // Build the application configuration
             application = new ApplicationInstance
             {
