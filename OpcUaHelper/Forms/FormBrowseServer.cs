@@ -656,6 +656,7 @@ namespace OpcUaHelper.Forms
             DataGridViewRow dgvr = dataGridView1.Rows[index];
             dgvr.Tag = nodeId;
 
+            if (dataValues[startIndex].WrappedValue.Value == null) return;
             NodeClass nodeclass = (NodeClass)dataValues[startIndex].WrappedValue.Value;
 
             dgvr.Cells[1].Value = dataValues[3 + startIndex].WrappedValue.Value;
