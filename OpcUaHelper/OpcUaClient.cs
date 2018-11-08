@@ -854,7 +854,7 @@ namespace OpcUaHelper
             Subscription m_subscription = new Subscription( m_session.DefaultSubscription );
 
             m_subscription.PublishingEnabled = true;
-            m_subscription.PublishingInterval = 100;
+            m_subscription.PublishingInterval = 0;
             m_subscription.KeepAliveCount = 10000;
             m_subscription.LifetimeCount = uint.MaxValue;
             m_subscription.MaxNotificationsPerPublish = 1000;
