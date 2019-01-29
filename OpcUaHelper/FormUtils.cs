@@ -448,7 +448,7 @@ namespace OpcUaHelper
                         // continue browse operation.
                         session.BrowseNext(
                             null,
-                            false,
+                            true,
                             continuationPoints,
                             out results,
                             out diagnosticInfos );

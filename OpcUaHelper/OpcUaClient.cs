@@ -1081,6 +1081,7 @@ namespace OpcUaHelper
 
             return references.ToArray( );
         }
+        
         #endregion
 
         #region Read Attributes Support

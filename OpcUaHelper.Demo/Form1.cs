@@ -182,6 +182,13 @@ namespace OpcUaHelper.Demo
 
                 // dataValues按顺序定义的值，每个值里面需要重新判断类型
                 List<DataValue> dataValues = m_OpcUaClient.ReadNodes( nodeIds.ToArray() );
+                // 然后遍历你的数据信息
+                foreach (var dataValue in dataValues)
+                {
+                    // 获取你的实际的数据
+                    object value = dataValue.WrappedValue.Value;
+                }
+
 
 
 
