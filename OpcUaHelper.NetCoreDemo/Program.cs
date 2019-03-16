@@ -22,7 +22,7 @@ namespace OpcUaHelper.NetCoreDemo
 
             try
             {
-                opcUaClient.ConnectServer( "opc.tcp://127.0.0.1:62541/SharpNodeSettings/OpcUaServer" );
+                opcUaClient.ConnectServer( "opc.tcp://118.24.36.220:62547/DataAccessServer" );
             }
             catch(Exception ex)
             {
@@ -30,8 +30,8 @@ namespace OpcUaHelper.NetCoreDemo
                 return;
             }
 
-            int value = opcUaClient.ReadNode<int>( "ns=2;s=Devices/分厂一/车间二/ModbusTcp客户端/温度" );
-            Console.WriteLine( "ns=2;s=Devices/分厂一/车间二/ModbusTcp客户端/温度" + "   value: " + value );
+            float value = opcUaClient.ReadNode<float>( "ns=2;s=Machines/Machine B/TestValueFloat" );
+            Console.WriteLine( "ns=2;s=Machines/Machine B/TestValueFloat" + "   value: " + value );
 
             Console.WriteLine("Please enter any key to quit!");
             Console.ReadLine( );

@@ -4,6 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>OpcUaHelper</AssemblyName>
     <RootNamespace>OpcUaHelper</RootNamespace>
+    <Version>2.1.0</Version>
+    <Authors>Copyright © Richard.Hu 2018 - 2019</Authors>
+    <Product>Richard.Hu</Product>
+    <Company>Richard.Hu</Company>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -20,24 +24,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Https" Version="2.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Portable.BouncyCastle" Version="1.8.1.3" />
+    <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.4.354.23" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
     <PackageReference Include="System.Net.WebSockets.Client" Version="4.3.2" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.4.0" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.5.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Opc.Ua.Client">
-      <HintPath>..\DllStandard\Opc.Ua.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Opc.Ua.Configuration">
-      <HintPath>..\DllStandard\Opc.Ua.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Opc.Ua.Core">
-      <HintPath>..\DllStandard\Opc.Ua.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

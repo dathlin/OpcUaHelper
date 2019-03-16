@@ -56,7 +56,7 @@ namespace OpcUaHelper.Forms
             }
             catch(Exception ex)
             {
-                Opc.Ua.Client.Controls.ClientUtils.HandleException( this.Text, ex );
+                ClientUtils.HandleException( this.Text, ex );
             }
         }
 

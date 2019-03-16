@@ -1,9 +1,5 @@
 ﻿using Opc.Ua;
 using Opc.Ua.Client;
-
-#if !NETSTANDARD2_0
-using Opc.Ua.Client.Controls;
-#endif
 using Opc.Ua.Configuration;
 using System;
 using System.Collections.Generic;
@@ -882,17 +878,20 @@ namespace OpcUaHelper
             m_session.AddSubscription( m_subscription );
             m_subscription.Create( );
 
-            if (dic_subscriptions.ContainsKey( key ))
+            lock (dic_subscriptions)
             {
-                // remove 
-                dic_subscriptions[key].Delete( true );
-                m_session.RemoveSubscription( dic_subscriptions[key] );
-                dic_subscriptions[key].Dispose( );
-                dic_subscriptions[key] = m_subscription;
-            }
-            else
-            {
-                dic_subscriptions.Add( key, m_subscription );
+                if (dic_subscriptions.ContainsKey( key ))
+                {
+                    // remove 
+                    dic_subscriptions[key].Delete( true );
+                    m_session.RemoveSubscription( dic_subscriptions[key] );
+                    dic_subscriptions[key].Dispose( );
+                    dic_subscriptions[key] = m_subscription;
+                }
+                else
+                {
+                    dic_subscriptions.Add( key, m_subscription );
+                }
             }
         }
 
@@ -902,13 +901,16 @@ namespace OpcUaHelper
         /// <param name="key">订阅关键值</param>
         public void RemoveSubscription( string key )
         {
-            if (dic_subscriptions.ContainsKey( key ))
+            lock (dic_subscriptions)
             {
-                // remove 
-                dic_subscriptions[key].Delete( true );
-                m_session.RemoveSubscription( dic_subscriptions[key] );
-                dic_subscriptions[key].Dispose( );
-                dic_subscriptions.Remove( key );
+                if (dic_subscriptions.ContainsKey( key ))
+                {
+                    // remove 
+                    dic_subscriptions[key].Delete( true );
+                    m_session.RemoveSubscription( dic_subscriptions[key] );
+                    dic_subscriptions[key].Dispose( );
+                    dic_subscriptions.Remove( key );
+                }
             }
         }
 
@@ -916,15 +918,18 @@ namespace OpcUaHelper
         /// <summary>
         /// 移除所有的订阅消息
         /// </summary>
-        public void RemoveAllSubscription( )
+        public void RemoveAllSubscription()
         {
-            foreach (var item in dic_subscriptions)
+            lock (dic_subscriptions)
             {
-                item.Value.Delete( true );
-                m_session.RemoveSubscription( item.Value );
-                item.Value.Dispose( );
+                foreach (var item in dic_subscriptions)
+                {
+                    item.Value.Delete( true );
+                    m_session.RemoveSubscription( item.Value );
+                    item.Value.Dispose( );
+                }
+                dic_subscriptions.Clear( );
             }
-            dic_subscriptions.Clear( );
         }
 
 

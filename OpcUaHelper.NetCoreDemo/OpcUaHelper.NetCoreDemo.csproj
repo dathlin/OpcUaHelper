@@ -6,11 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.ServiceModel.Primitives" Version="4.5.3" />
+    <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.4.354.23" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpcUaHelper.Standard\OpcUaHelper.Standard.csproj" />
+    <Reference Include="OpcUaHelper">
+      <HintPath>..\OpcUaHelper.Standard\bin\Debug\netstandard2.0\OpcUaHelper.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

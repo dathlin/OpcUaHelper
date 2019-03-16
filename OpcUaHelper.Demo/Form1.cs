@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Opc.Ua;
 using Opc.Ua.Client;
-using Opc.Ua.Client.Controls;
 using OpcUaHelper;
 
 namespace OpcUaHelper.Demo
