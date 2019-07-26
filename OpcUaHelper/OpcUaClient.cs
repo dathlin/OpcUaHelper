@@ -851,9 +851,9 @@ namespace OpcUaHelper
 
             m_subscription.PublishingEnabled = true;
             m_subscription.PublishingInterval = 0;
-            m_subscription.KeepAliveCount = 10000;
+            m_subscription.KeepAliveCount = uint.MaxValue;
             m_subscription.LifetimeCount = uint.MaxValue;
-            m_subscription.MaxNotificationsPerPublish = 1000;
+            m_subscription.MaxNotificationsPerPublish = uint.MaxValue;
             m_subscription.Priority = 100;
             m_subscription.DisplayName = key;
 
