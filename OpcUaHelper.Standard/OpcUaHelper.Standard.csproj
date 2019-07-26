@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>OpcUaHelper</AssemblyName>
     <RootNamespace>OpcUaHelper</RootNamespace>
-    <Version>2.1.0</Version>
+    <Version>2.1.1</Version>
     <Authors>Copyright © Richard.Hu 2018 - 2019</Authors>
     <Product>Richard.Hu</Product>
     <Company>Richard.Hu</Company>
