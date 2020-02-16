@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.4.356.27" />
+    <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.4.359.31" />
   </ItemGroup>
 
   <ItemGroup>

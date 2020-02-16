@@ -102,7 +102,6 @@ namespace OpcUaHelper
 
         #region Connect And Disconnect
 
-
         /// <summary>
         /// connect to server
         /// </summary>
@@ -112,7 +111,6 @@ namespace OpcUaHelper
             m_session = await Connect( serverUrl );
         }
 
-        
         /// <summary>
         /// Creates a new session.
         /// </summary>
@@ -184,11 +182,9 @@ namespace OpcUaHelper
             DoConnectComplete( null );
         }
 
-
         #endregion
 
         #region Event Handlers
-
 
         /// <summary>
         /// Report the client status
@@ -212,7 +208,6 @@ namespace OpcUaHelper
         /// </summary>
         private void Session_KeepAlive( Session session, KeepAliveEventArgs e )
         {
-
             try
             {
                 // check for events from discarded sessions.
@@ -251,15 +246,13 @@ namespace OpcUaHelper
             }
             catch (Exception exception)
             {
-#if !NETSTANDARD2_0
+#if !NETSTANDARD2_0 && !NETSTANDARD2_1
                 ClientUtils.HandleException( OpcUaName, exception );
 #else
                 throw;
 #endif
             }
         }
-
-
 
         /// <summary>
         /// Handles a reconnect event complete from the reconnect handler.
@@ -284,14 +277,13 @@ namespace OpcUaHelper
             }
             catch (Exception exception)
             {
-#if !NETSTANDARD2_0
+#if !NETSTANDARD2_0 && !NETSTANDARD2_1
                 ClientUtils.HandleException( OpcUaName, exception );
 #else
                 throw;
 #endif
             }
         }
-
 
         #endregion
 
@@ -330,8 +322,6 @@ namespace OpcUaHelper
         /// The user identity to use when creating the session.
         /// </summary>
         public IUserIdentity UserIdentity { get; set; }
-
-
 
         /// <summary>
         /// The currently active session. 
@@ -418,7 +408,6 @@ namespace OpcUaHelper
         #endregion
 
         #region Node Write/Read Support
-
 
         /// <summary>
         /// Read a value node from server
@@ -514,9 +503,6 @@ namespace OpcUaHelper
             return taskCompletionSource.Task;
         }
 
-
-
-
         /// <summary>
         /// read several value nodes from server
         /// </summary>
@@ -549,7 +535,53 @@ namespace OpcUaHelper
             return results.ToList( );
         }
 
+        /// <summary>
+        /// read several value nodes from server
+        /// </summary>
+        /// <param name="nodeIds">all NodeIds</param>
+        /// <returns>all values</returns>
+        public Task<List<DataValue>> ReadNodesAsync( NodeId[] nodeIds )
+        {
+            ReadValueIdCollection nodesToRead = new ReadValueIdCollection( );
+            for (int i = 0; i < nodeIds.Length; i++)
+            {
+                nodesToRead.Add( new ReadValueId( )
+                {
+                    NodeId = nodeIds[i],
+                    AttributeId = Attributes.Value
+                } );
+            }
 
+            var taskCompletionSource = new TaskCompletionSource<List<DataValue>>( );
+            // 读取当前的值
+            m_session.BeginRead(
+                null,
+                0,
+                TimestampsToReturn.Neither,
+                nodesToRead,
+                callback: ar =>
+                {
+                    DataValueCollection results;
+                    DiagnosticInfoCollection diag;
+                    var response = m_session.EndRead(
+                      result: ar,
+                      results: out results,
+                      diagnosticInfos: out diag );
+
+                    try
+                    {
+                        CheckReturnValue( response.ServiceResult );
+                        taskCompletionSource.TrySetResult( results.ToList( ) );
+                    }
+                    catch (Exception ex)
+                    {
+                        taskCompletionSource.TrySetException( ex );
+                    }
+                },
+                asyncState: null);
+
+            return taskCompletionSource.Task;
+        }
 
         /// <summary>
         /// read several value nodes from server
@@ -588,8 +620,58 @@ namespace OpcUaHelper
             return result;
         }
 
+        /// <summary>
+        /// read several value nodes from server
+        /// </summary>
+        /// <param name="tags">all NodeIds</param>
+        /// <returns>all values</returns>
+        public Task<List<T>> ReadNodesAsync<T>( string[] tags )
+        {
+            ReadValueIdCollection nodesToRead = new ReadValueIdCollection( );
+            for (int i = 0; i < tags.Length; i++)
+            {
+                nodesToRead.Add( new ReadValueId( )
+                {
+                    NodeId = new NodeId( tags[i] ),
+                    AttributeId = Attributes.Value
+                } );
+            }
 
+            var taskCompletionSource = new TaskCompletionSource<List<T>>( );
+            // 读取当前的值
+            m_session.BeginRead(
+                null,
+                0,
+                TimestampsToReturn.Neither,
+                nodesToRead,
+                callback: ar =>
+                {
+                    DataValueCollection results;
+                    DiagnosticInfoCollection diag;
+                    var response = m_session.EndRead(
+                      result: ar,
+                      results: out results,
+                      diagnosticInfos: out diag );
 
+                    try
+                    {
+                        CheckReturnValue( response.ServiceResult );
+                        List<T> result = new List<T>( );
+                        foreach (var item in results)
+                        {
+                            result.Add( (T)item.Value );
+                        }
+                        taskCompletionSource.TrySetResult( result );
+                    }
+                    catch (Exception ex)
+                    {
+                        taskCompletionSource.TrySetException( ex );
+                    }
+                },
+                asyncState: null );
+
+            return taskCompletionSource.Task;
+        }
 
         /// <summary>
         /// write a note to server(you should use try catch)
@@ -745,7 +827,7 @@ namespace OpcUaHelper
         /// 删除一个节点的操作，除非服务器配置允许，否则引发异常，成功返回<c>True</c>，否则返回<c>False</c>
         /// </summary>
         /// <param name="tag">节点文本描述</param>
-        /// <returns></returns>
+        /// <returns>是否删除成功</returns>
         public bool DeleteExsistNode( string tag )
         {
             DeleteNodesItemCollection waitDelete = new DeleteNodesItemCollection( );
