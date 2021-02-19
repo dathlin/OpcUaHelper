@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace OpcUaHelper
 {
+    /// <summary>
+    /// 辅助类
+    /// </summary>
     public class FormUtils
     {
         /// <summary>
@@ -75,7 +78,7 @@ namespace OpcUaHelper
         /// <summary>
         /// Gets the display text for the event notifier attribute.
         /// </summary>
-        /// <param name="accessLevel">The event notifier.</param>
+        /// <param name="eventNotifier">The event notifier.</param>
         /// <returns>The event notifier formatted as a string.</returns>
         private static string GetEventNotifierDisplayText( byte eventNotifier )
         {
@@ -117,7 +120,7 @@ namespace OpcUaHelper
         /// <summary>
         /// Gets the display text for the value rank attribute.
         /// </summary>
-        /// <param name="accessLevel">The value rank.</param>
+        /// <param name="valueRank">The value rank.</param>
         /// <returns>The value rank formatted as a string.</returns>
         private static string GetValueRankDisplayText( int valueRank )
         {
@@ -863,7 +866,6 @@ namespace OpcUaHelper
         /// Collects the fields for the type.
         /// </summary>
         /// <param name="session">The session.</param>
-        /// <param name="eventTypeId">The type id.</param>
         /// <param name="fields">The fields.</param>
         /// <param name="fieldNodeIds">The node id for the declaration of the field.</param>
         public static void CollectFieldsForType( Session session, NodeId typeId, SimpleAttributeOperandCollection fields, List<NodeId> fieldNodeIds )
@@ -893,9 +895,8 @@ namespace OpcUaHelper
         /// Collects the fields for the instance.
         /// </summary>
         /// <param name="session">The session.</param>
-        /// <param name="eventTypeId">The instance id.</param>
         /// <param name="fields">The fields.</param>
-        /// <param name="fieldNodeIds">The node id for the declaration of the field.</param>
+        /// <param name="instanceId">The node id for the declaration of the field.</param>
         public static void CollectFieldsForInstance( Session session, NodeId instanceId, SimpleAttributeOperandCollection fields, List<NodeId> fieldNodeIds )
         {
             Dictionary<NodeId, QualifiedNameCollection> foundNodes = new Dictionary<NodeId, QualifiedNameCollection>( );
