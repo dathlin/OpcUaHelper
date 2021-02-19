@@ -18,5 +18,5 @@ namespace OpcUaHelper.Tool
             Application.SetCompatibleTextRenderingDefault( false );
             Application.Run( new OpcUaHelper.Forms.FormBrowseServer( ) );
         }
-    }
+	}
 }
