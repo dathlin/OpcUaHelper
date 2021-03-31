@@ -150,9 +150,13 @@ namespace OpcUaHelper.Forms
         {
             try
             {
-                // populate the browse view.
-                PopulateBranch(ObjectIds.ObjectsFolder, BrowseNodesTV.Nodes);
-                BrowseNodesTV.Enabled = true;
+                OpcUaClient client = (OpcUaClient)sender;
+                if (client.Connected)
+                {
+                    // populate the browse view.
+                    PopulateBranch(ObjectIds.ObjectsFolder, BrowseNodesTV.Nodes);
+                    BrowseNodesTV.Enabled = true;
+                }
             }
             catch (Exception exception)
             {
