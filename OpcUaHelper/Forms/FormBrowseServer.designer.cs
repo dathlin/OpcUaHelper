@@ -34,16 +34,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.BrowseNodesTV = new OpcUaHelper.Forms.TreeViewEx();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Image = new System.Windows.Forms.DataGridViewImageColumn();
-            this.DisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccessLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label_time_spend = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -58,7 +53,13 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.discoverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.Image = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccessLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -124,6 +125,17 @@
             this.splitContainer1.SplitterDistance = 300;
             this.splitContainer1.TabIndex = 3;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(201, 6);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(93, 21);
+            this.checkBox1.TabIndex = 7;
+            this.checkBox1.Text = "Fast Access";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::OpcUaHelper.Properties.Resources.glasses_16xLG;
@@ -176,7 +188,8 @@
             this.Value,
             this.Type,
             this.AccessLevel,
-            this.Description});
+            this.Description,
+            this.StatusCode});
             this.dataGridView1.Location = new System.Drawing.Point(3, 32);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -187,51 +200,6 @@
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
-            // 
-            // Image
-            // 
-            this.Image.HeaderText = "";
-            this.Image.Name = "Image";
-            this.Image.Width = 20;
-            // 
-            // DisplayName
-            // 
-            this.DisplayName.HeaderText = "Name";
-            this.DisplayName.Name = "DisplayName";
-            this.DisplayName.ReadOnly = true;
-            this.DisplayName.ToolTipText = "参数的显示名称";
-            this.DisplayName.Width = 145;
-            // 
-            // Value
-            // 
-            this.Value.HeaderText = "Value";
-            this.Value.Name = "Value";
-            this.Value.ToolTipText = "参数的实际数据值";
-            this.Value.Width = 200;
-            // 
-            // Type
-            // 
-            this.Type.HeaderText = "Type";
-            this.Type.Name = "Type";
-            this.Type.ReadOnly = true;
-            this.Type.ToolTipText = "参数的类型";
-            this.Type.Width = 80;
-            // 
-            // AccessLevel
-            // 
-            this.AccessLevel.HeaderText = "AccessLevel";
-            this.AccessLevel.Name = "AccessLevel";
-            this.AccessLevel.ReadOnly = true;
-            this.AccessLevel.ToolTipText = "数据的访问等级";
-            this.AccessLevel.Width = 130;
-            // 
-            // Description
-            // 
-            this.Description.HeaderText = "Description";
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            this.Description.ToolTipText = "数据的文本描述";
-            this.Description.Width = 140;
             // 
             // panel1
             // 
@@ -369,16 +337,56 @@
             this.discoverToolStripMenuItem.Text = "Discover";
             this.discoverToolStripMenuItem.Click += new System.EventHandler(this.discoverToolStripMenuItem_Click);
             // 
-            // checkBox1
+            // Image
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(201, 6);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(93, 21);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Fast Access";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.Image.HeaderText = "";
+            this.Image.Name = "Image";
+            this.Image.Width = 20;
+            // 
+            // DisplayName
+            // 
+            this.DisplayName.HeaderText = "Name";
+            this.DisplayName.Name = "DisplayName";
+            this.DisplayName.ReadOnly = true;
+            this.DisplayName.ToolTipText = "参数的显示名称";
+            this.DisplayName.Width = 145;
+            // 
+            // Value
+            // 
+            this.Value.HeaderText = "Value";
+            this.Value.Name = "Value";
+            this.Value.ToolTipText = "参数的实际数据值";
+            this.Value.Width = 200;
+            // 
+            // Type
+            // 
+            this.Type.HeaderText = "Type";
+            this.Type.Name = "Type";
+            this.Type.ReadOnly = true;
+            this.Type.ToolTipText = "参数的类型";
+            this.Type.Width = 80;
+            // 
+            // AccessLevel
+            // 
+            this.AccessLevel.HeaderText = "AccessLevel";
+            this.AccessLevel.Name = "AccessLevel";
+            this.AccessLevel.ReadOnly = true;
+            this.AccessLevel.ToolTipText = "数据的访问等级";
+            this.AccessLevel.Width = 130;
+            // 
+            // Description
+            // 
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            this.Description.ToolTipText = "数据的文本描述";
+            this.Description.Width = 140;
+            // 
+            // StatusCode
+            // 
+            this.StatusCode.HeaderText = "StatusCode";
+            this.StatusCode.Name = "StatusCode";
+            this.StatusCode.ReadOnly = true;
             // 
             // FormBrowseServer
             // 
@@ -439,17 +447,18 @@
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox_nodeId;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.DataGridViewImageColumn Image;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DisplayName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AccessLevel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem discoverToolStripMenuItem;
         private System.Windows.Forms.Label label_time_spend;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.DataGridViewImageColumn Image;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DisplayName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccessLevel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCode;
     }
 }

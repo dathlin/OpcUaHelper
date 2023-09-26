@@ -685,6 +685,7 @@ namespace OpcUaHelper.Forms
                 if (dataValue.WrappedValue.TypeInfo != null)
                 {
                     dgvr.Cells[3].Value = dataValue.WrappedValue.TypeInfo.BuiltInType;
+                    dgvr.Cells[6].Value = dataValue.StatusCode.ToString();
                     // dgvr.Cells[3].Value = dataValue.Value.GetType().ToString();
                     if (dataValue.WrappedValue.TypeInfo.ValueRank == ValueRanks.Scalar)
                     {
@@ -719,6 +720,7 @@ namespace OpcUaHelper.Forms
                 dgvr.Cells[2].Value = "";
                 dgvr.Cells[0].Value = Properties.Resources.ClassIcon;
                 dgvr.Cells[3].Value = nodeclass.ToString();
+                dgvr.Cells[6].Value = "";
             }
         }
 
