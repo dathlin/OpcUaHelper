@@ -385,7 +385,7 @@ namespace OpcUaHelper
         /// <returns>
         /// The references found. Null if an error occurred.
         /// </returns>
-        public static ReferenceDescriptionCollection Browse( Session session, BrowseDescriptionCollection nodesToBrowse, bool throwOnError )
+        public static ReferenceDescriptionCollection Browse( ISession session, BrowseDescriptionCollection nodesToBrowse, bool throwOnError )
         {
             try
             {
