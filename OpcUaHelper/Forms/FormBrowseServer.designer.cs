@@ -60,6 +60,7 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.discoverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.v220ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -358,7 +359,8 @@
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(118)))), ((int)(((byte)(0)))));
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuToolStripMenuItem});
+            this.menuToolStripMenuItem,
+            this.v220ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1201, 25);
@@ -387,6 +389,12 @@
             this.discoverToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.discoverToolStripMenuItem.Text = "Discover";
             this.discoverToolStripMenuItem.Click += new System.EventHandler(this.discoverToolStripMenuItem_Click);
+            // 
+            // v220ToolStripMenuItem
+            // 
+            this.v220ToolStripMenuItem.Name = "v220ToolStripMenuItem";
+            this.v220ToolStripMenuItem.Size = new System.Drawing.Size(53, 21);
+            this.v220ToolStripMenuItem.Text = "v2.2.0";
             // 
             // FormBrowseServer
             // 
@@ -460,5 +468,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AccessLevel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusCode;
+        private System.Windows.Forms.ToolStripMenuItem v220ToolStripMenuItem;
     }
 }

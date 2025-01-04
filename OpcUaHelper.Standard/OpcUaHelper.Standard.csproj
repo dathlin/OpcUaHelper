@@ -5,6 +5,7 @@
     <AssemblyName>OpcUaHelper</AssemblyName>
     <RootNamespace>OpcUaHelper</RootNamespace>
     <Version>2.2.0</Version>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
