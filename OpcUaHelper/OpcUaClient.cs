@@ -123,7 +123,7 @@ namespace OpcUaHelper
 		/// Creates a new session.
 		/// </summary>
 		/// <returns>The new session object.</returns>
-		private async Task<Session> Connect( string serverUrl )
+		private async Task<ISession> Connect( string serverUrl )
 		{
 			// disconnect from existing session.
 			Disconnect( );
@@ -139,7 +139,7 @@ namespace OpcUaHelper
 
 			ConfiguredEndpoint endpoint = new ConfiguredEndpoint( null, endpointDescription, endpointConfiguration );
 
-			m_session = await Session.Create(
+			m_session = await Opc.Ua.Client.Session.Create(
 				m_configuration,
 				endpoint,
 				false,
@@ -214,7 +214,7 @@ namespace OpcUaHelper
 		/// <summary>
 		/// Handles a keep alive event from a session.
 		/// </summary>
-		private void Session_KeepAlive( Session session, KeepAliveEventArgs e )
+		private void Session_KeepAlive( ISession session, KeepAliveEventArgs e )
 		{
 			try
 			{
@@ -333,7 +333,7 @@ namespace OpcUaHelper
 		/// <summary>
 		/// The currently active session.
 		/// </summary>
-		public Session Session
+		public ISession Session
 		{
 			get { return m_session; }
 		}
@@ -1436,7 +1436,7 @@ namespace OpcUaHelper
 		#region Private Fields
 
 		private ApplicationConfiguration m_configuration;
-		private Session m_session;
+		private ISession m_session;
 		private bool m_IsConnected;                       //是否已经连接过
 		private int m_reconnectPeriod = 10;               // 重连状态
 		private bool m_useSecurity;

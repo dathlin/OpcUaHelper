@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using OpcUaHelper;
 
 
@@ -16,13 +17,13 @@ namespace OpcUaHelper.NetCoreDemo
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             OpcUaClient opcUaClient = new OpcUaClient( );
 
             try
             {
-                opcUaClient.ConnectServer( "opc.tcp://118.24.36.220:62547/DataAccessServer" );
+                await opcUaClient.ConnectServer( "opc.tcp://118.24.36.220:62548/DataAccessServer" );
             }
             catch(Exception ex)
             {

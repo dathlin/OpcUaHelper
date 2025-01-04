@@ -39,6 +39,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.BrowseNodesTV = new OpcUaHelper.Forms.TreeViewEx();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Image = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccessLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label_time_spend = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -53,13 +60,6 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.discoverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Image = new System.Windows.Forms.DataGridViewImageColumn();
-            this.DisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccessLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -79,13 +79,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(72, 28);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(887, 23);
+            this.textBox1.Size = new System.Drawing.Size(1022, 23);
             this.textBox1.TabIndex = 0;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(965, 27);
+            this.button1.Location = new System.Drawing.Point(1100, 27);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(89, 25);
             this.button1.TabIndex = 1;
@@ -121,15 +121,15 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(1044, 492);
-            this.splitContainer1.SplitterDistance = 300;
+            this.splitContainer1.Size = new System.Drawing.Size(1179, 510);
+            this.splitContainer1.SplitterDistance = 338;
             this.splitContainer1.TabIndex = 3;
             // 
             // checkBox1
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(201, 6);
+            this.checkBox1.Location = new System.Drawing.Point(239, 6);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(93, 21);
             this.checkBox1.TabIndex = 7;
@@ -164,7 +164,7 @@
             this.BrowseNodesTV.Location = new System.Drawing.Point(3, 32);
             this.BrowseNodesTV.Name = "BrowseNodesTV";
             this.BrowseNodesTV.ShowLines = false;
-            this.BrowseNodesTV.Size = new System.Drawing.Size(294, 457);
+            this.BrowseNodesTV.Size = new System.Drawing.Size(332, 475);
             this.BrowseNodesTV.TabIndex = 0;
             this.BrowseNodesTV.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.BrowseNodesTV_BeforeExpand);
             this.BrowseNodesTV.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BrowseNodesTV_AfterSelect);
@@ -196,146 +196,10 @@
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(736, 457);
+            this.dataGridView1.Size = new System.Drawing.Size(833, 475);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.label_time_spend);
-            this.panel1.Controls.Add(this.pictureBox3);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.textBox_nodeId);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(735, 27);
-            this.panel1.TabIndex = 0;
-            // 
-            // label_time_spend
-            // 
-            this.label_time_spend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_time_spend.AutoSize = true;
-            this.label_time_spend.Location = new System.Drawing.Point(671, 4);
-            this.label_time_spend.Name = "label_time_spend";
-            this.label_time_spend.Size = new System.Drawing.Size(32, 17);
-            this.label_time_spend.TabIndex = 9;
-            this.label_time_spend.Text = "0ms";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.Image = global::OpcUaHelper.Properties.Resources.usbcontroller;
-            this.pictureBox3.Location = new System.Drawing.Point(648, 5);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(17, 18);
-            this.pictureBox3.TabIndex = 8;
-            this.pictureBox3.TabStop = false;
-            // 
-            // button2
-            // 
-            this.button2.Image = global::OpcUaHelper.Properties.Resources.Activity_16xLG;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(0, 1);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(106, 25);
-            this.button2.TabIndex = 7;
-            this.button2.Text = " Subscript";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // textBox_nodeId
-            // 
-            this.textBox_nodeId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_nodeId.Location = new System.Drawing.Point(295, 2);
-            this.textBox_nodeId.Name = "textBox_nodeId";
-            this.textBox_nodeId.ReadOnly = true;
-            this.textBox_nodeId.Size = new System.Drawing.Size(347, 23);
-            this.textBox_nodeId.TabIndex = 6;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::OpcUaHelper.Properties.Resources.Copy_6524;
-            this.pictureBox1.Location = new System.Drawing.Point(163, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(17, 18);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label2.Location = new System.Drawing.Point(182, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(109, 17);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Selected NodeId:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel_opc});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 547);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1066, 22);
-            this.statusStrip1.TabIndex = 4;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(78, 17);
-            this.toolStripStatusLabel1.Text = "Opc Status: ";
-            // 
-            // toolStripStatusLabel_opc
-            // 
-            this.toolStripStatusLabel_opc.Name = "toolStripStatusLabel_opc";
-            this.toolStripStatusLabel_opc.Size = new System.Drawing.Size(0, 17);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(118)))), ((int)(((byte)(0)))));
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1066, 25);
-            this.menuStrip1.TabIndex = 5;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // menuToolStripMenuItem
-            // 
-            this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem,
-            this.discoverToolStripMenuItem});
-            this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            this.menuToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
-            this.menuToolStripMenuItem.Text = "menu";
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // discoverToolStripMenuItem
-            // 
-            this.discoverToolStripMenuItem.Name = "discoverToolStripMenuItem";
-            this.discoverToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.discoverToolStripMenuItem.Text = "Discover";
-            this.discoverToolStripMenuItem.Click += new System.EventHandler(this.discoverToolStripMenuItem_Click);
             // 
             // Image
             // 
@@ -388,11 +252,147 @@
             this.StatusCode.Name = "StatusCode";
             this.StatusCode.ReadOnly = true;
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.label_time_spend);
+            this.panel1.Controls.Add(this.pictureBox3);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.textBox_nodeId);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(832, 27);
+            this.panel1.TabIndex = 0;
+            // 
+            // label_time_spend
+            // 
+            this.label_time_spend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_time_spend.AutoSize = true;
+            this.label_time_spend.Location = new System.Drawing.Point(768, 4);
+            this.label_time_spend.Name = "label_time_spend";
+            this.label_time_spend.Size = new System.Drawing.Size(32, 17);
+            this.label_time_spend.TabIndex = 9;
+            this.label_time_spend.Text = "0ms";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.Image = global::OpcUaHelper.Properties.Resources.usbcontroller;
+            this.pictureBox3.Location = new System.Drawing.Point(745, 5);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(17, 18);
+            this.pictureBox3.TabIndex = 8;
+            this.pictureBox3.TabStop = false;
+            // 
+            // button2
+            // 
+            this.button2.Image = global::OpcUaHelper.Properties.Resources.Activity_16xLG;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.Location = new System.Drawing.Point(0, 1);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(106, 25);
+            this.button2.TabIndex = 7;
+            this.button2.Text = " Subscript";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // textBox_nodeId
+            // 
+            this.textBox_nodeId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_nodeId.Location = new System.Drawing.Point(295, 2);
+            this.textBox_nodeId.Name = "textBox_nodeId";
+            this.textBox_nodeId.ReadOnly = true;
+            this.textBox_nodeId.Size = new System.Drawing.Size(444, 23);
+            this.textBox_nodeId.TabIndex = 6;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::OpcUaHelper.Properties.Resources.Copy_6524;
+            this.pictureBox1.Location = new System.Drawing.Point(163, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(17, 18);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label2.Location = new System.Drawing.Point(182, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(109, 17);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Selected NodeId:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel_opc});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 565);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1201, 22);
+            this.statusStrip1.TabIndex = 4;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(78, 17);
+            this.toolStripStatusLabel1.Text = "Opc Status: ";
+            // 
+            // toolStripStatusLabel_opc
+            // 
+            this.toolStripStatusLabel_opc.Name = "toolStripStatusLabel_opc";
+            this.toolStripStatusLabel_opc.Size = new System.Drawing.Size(0, 17);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(118)))), ((int)(((byte)(0)))));
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1201, 25);
+            this.menuStrip1.TabIndex = 5;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // menuToolStripMenuItem
+            // 
+            this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem,
+            this.discoverToolStripMenuItem});
+            this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
+            this.menuToolStripMenuItem.Text = "menu";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // discoverToolStripMenuItem
+            // 
+            this.discoverToolStripMenuItem.Name = "discoverToolStripMenuItem";
+            this.discoverToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.discoverToolStripMenuItem.Text = "Discover";
+            this.discoverToolStripMenuItem.Click += new System.EventHandler(this.discoverToolStripMenuItem_Click);
+            // 
             // FormBrowseServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1066, 569);
+            this.ClientSize = new System.Drawing.Size(1201, 587);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.splitContainer1);
