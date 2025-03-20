@@ -106,7 +106,7 @@ namespace OpcUaHelper
 			m_configuration = configuration;
 		}
 
-		#endregion Constructors
+		#endregion Constructor
 
 		#region Connect And Disconnect
 
@@ -911,23 +911,30 @@ namespace OpcUaHelper
 			AddSubscription( key, new string[] { tag }, callback );
 		}
 
+		/// <inheritdoc cref="AddSubscription(string, string[], Action{string, MonitoredItem, MonitoredItemNotificationEventArgs}, Action{Subscription})"/>
+		public void AddSubscription( string key, string[] tags, Action<string, MonitoredItem, MonitoredItemNotificationEventArgs> callback )
+		{
+			AddSubscription( key, tags, callback, null );
+		}
+
 		/// <summary>
 		/// 新增一批订阅，需要指定订阅的关键字，订阅的tag名数组，以及回调方法
 		/// </summary>
 		/// <param name="key">关键字</param>
 		/// <param name="tags">节点名称数组</param>
 		/// <param name="callback">回调方法</param>
-		public void AddSubscription( string key, string[] tags, Action<string, MonitoredItem, MonitoredItemNotificationEventArgs> callback )
+		/// <param name="subAction">关于订阅参数的自定义的设置</param>
+		public void AddSubscription( string key, string[] tags, Action<string, MonitoredItem, MonitoredItemNotificationEventArgs> callback, Action<Subscription> subAction )
 		{
 			Subscription m_subscription = new Subscription( m_session.DefaultSubscription );
-
 			m_subscription.PublishingEnabled = true;
 			m_subscription.PublishingInterval = 0;
-			m_subscription.KeepAliveCount = uint.MaxValue;
-			m_subscription.LifetimeCount = uint.MaxValue;
-			m_subscription.MaxNotificationsPerPublish = uint.MaxValue;
+			m_subscription.KeepAliveCount = ushort.MaxValue;
+			m_subscription.LifetimeCount = 2400;
+			m_subscription.MaxNotificationsPerPublish = ushort.MaxValue;
 			m_subscription.Priority = 100;
 			m_subscription.DisplayName = key;
+			subAction?.Invoke( m_subscription );
 
 			for (int i = 0; i < tags.Length; i++)
 			{
