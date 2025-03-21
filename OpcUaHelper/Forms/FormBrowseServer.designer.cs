@@ -61,6 +61,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.discoverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.v220ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -80,13 +81,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(72, 28);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1022, 23);
+            this.textBox1.Size = new System.Drawing.Size(934, 23);
             this.textBox1.TabIndex = 0;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(1100, 27);
+            this.button1.Location = new System.Drawing.Point(1009, 27);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(89, 25);
             this.button1.TabIndex = 1;
@@ -396,11 +397,23 @@
             this.v220ToolStripMenuItem.Size = new System.Drawing.Size(53, 21);
             this.v220ToolStripMenuItem.Text = "v2.2.0";
             // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Location = new System.Drawing.Point(1102, 27);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(89, 25);
+            this.button3.TabIndex = 6;
+            this.button3.Text = "Close";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // FormBrowseServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1201, 587);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.splitContainer1);
@@ -469,5 +482,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusCode;
         private System.Windows.Forms.ToolStripMenuItem v220ToolStripMenuItem;
+        private System.Windows.Forms.Button button3;
     }
 }
