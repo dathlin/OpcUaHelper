@@ -279,7 +279,6 @@ namespace OpcUaHelper
             try
             {
                 ReferenceDescriptionCollection references = new ReferenceDescriptionCollection( );
-                BrowseDescriptionCollection unprocessedOperations = new BrowseDescriptionCollection( );
 
                 while (nodesToBrowse.Count > 0)
                 {
@@ -299,6 +298,7 @@ namespace OpcUaHelper
                     ClientBase.ValidateDiagnosticInfos( diagnosticInfos, nodesToBrowse );
 
                     ByteStringCollection continuationPoints = new ByteStringCollection( );
+                    BrowseDescriptionCollection unprocessedOperations = new BrowseDescriptionCollection( );
 
                     for (int ii = 0; ii < nodesToBrowse.Count; ii++)
                     {
@@ -333,8 +333,6 @@ namespace OpcUaHelper
                     }
 
                     // process continuation points.
-                    ByteStringCollection revisedContiuationPoints = new ByteStringCollection( );
-
                     while (continuationPoints.Count > 0)
                     {
                         // continue browse operation.
@@ -348,6 +346,7 @@ namespace OpcUaHelper
                         ClientBase.ValidateResponse( results, continuationPoints );
                         ClientBase.ValidateDiagnosticInfos( diagnosticInfos, continuationPoints );
 
+                        ByteStringCollection revisedContinuationPoints = new ByteStringCollection( );
                         for (int ii = 0; ii < continuationPoints.Count; ii++)
                         {
                             // check for error.
@@ -368,12 +367,12 @@ namespace OpcUaHelper
                             // check for continuation point.
                             if (results[ii].ContinuationPoint != null)
                             {
-                                revisedContiuationPoints.Add( results[ii].ContinuationPoint );
+                                revisedContinuationPoints.Add( results[ii].ContinuationPoint );
                             }
                         }
 
                         // check if browsing must continue;
-                        revisedContiuationPoints = continuationPoints;
+                        continuationPoints = revisedContinuationPoints;
                     }
 
                     // check if unprocessed results exist.
@@ -1261,6 +1260,7 @@ namespace OpcUaHelper
 
             return -1;
         }
+
         #endregion
 
     }

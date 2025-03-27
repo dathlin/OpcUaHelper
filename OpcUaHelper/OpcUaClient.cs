@@ -179,7 +179,8 @@ namespace OpcUaHelper
 			// disconnect any existing session.
 			if (m_session != null)
 			{
-				m_session.Close( 10000 );
+				m_session.Close( 3000 );
+				m_session.Dispose( );
 				m_session = null;
 			}
 

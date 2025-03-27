@@ -228,6 +228,7 @@ namespace OpcUaServerSample
                     CreateVariable( myFolder, "Name", DataTypeIds.String, ValueRanks.Scalar, "测试数据" ).Description = "设备的名称";
                     CreateVariable( myFolder, "IsFault", DataTypeIds.Boolean, ValueRanks.Scalar, true ).Description = "设备是否启动";
                     CreateVariable( myFolder, "TestValueFloat", DataTypeIds.Float, ValueRanks.Scalar, 100.5f );
+                    CreateVariable( myFolder, "TestValueArray", DataTypeIds.Float, ValueRanks.OneDimension, new float[] {1,2,3,4,5} );
                     CreateVariable( myFolder, "AlarmTime", DataTypeIds.DateTime, ValueRanks.Scalar, DateTime.Now );
                     list.Add( CreateVariable( myFolder, "TestValueInt", DataTypeIds.Int32, ValueRanks.Scalar, 47123 ) );
 
@@ -275,9 +276,16 @@ namespace OpcUaServerSample
 
                 }
 
-                SystemState = CreateVariable( rootMy, "Enable", DataTypeIds.Boolean, ValueRanks.Scalar, false );
 
+                SystemState = CreateVariable( rootMy, "Enable", DataTypeIds.Boolean, ValueRanks.Scalar, false );
                 CreateVariable( rootMy, "Mat", DataTypeIds.Double, ValueRanks.TwoDimensions, new double[4, 4] );
+
+
+                FolderState testFolder = CreateFolder( rootMy, "LargeArray" );
+                for(int i = 0; i < 2100; i++)
+                {
+                    CreateVariable( testFolder, "Value" + i, DataTypeIds.Int32, ValueRanks.Scalar, i );
+                }
 
 
                 AddPredefinedNode( SystemContext, rootMy );
