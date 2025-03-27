@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>OpcUaHelper</AssemblyName>
     <RootNamespace>OpcUaHelper</RootNamespace>
-    <Version>2.2.0</Version>
+    <Version>2.2.1</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 

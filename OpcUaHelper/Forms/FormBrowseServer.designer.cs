@@ -34,6 +34,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -114,6 +115,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox2);
             this.splitContainer1.Panel1.Controls.Add(this.checkBox1);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBox2);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
@@ -126,6 +128,19 @@
             this.splitContainer1.Size = new System.Drawing.Size(1179, 510);
             this.splitContainer1.SplitterDistance = 338;
             this.splitContainer1.TabIndex = 3;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Location = new System.Drawing.Point(181, 7);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(52, 21);
+            this.checkBox2.TabIndex = 8;
+            this.checkBox2.Text = "Icon";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // checkBox1
             // 
@@ -395,7 +410,7 @@
             // 
             this.v220ToolStripMenuItem.Name = "v220ToolStripMenuItem";
             this.v220ToolStripMenuItem.Size = new System.Drawing.Size(53, 21);
-            this.v220ToolStripMenuItem.Text = "v2.2.0";
+            this.v220ToolStripMenuItem.Text = "v2.2.1";
             // 
             // button3
             // 
@@ -483,5 +498,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusCode;
         private System.Windows.Forms.ToolStripMenuItem v220ToolStripMenuItem;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }

@@ -896,6 +896,7 @@ namespace OpcUaHelper
         /// </summary>
         /// <param name="session">The session.</param>
         /// <param name="fields">The fields.</param>
+        /// <param name="fieldNodeIds">字段</param>
         /// <param name="instanceId">The node id for the declaration of the field.</param>
         public static void CollectFieldsForInstance( Session session, NodeId instanceId, SimpleAttributeOperandCollection fields, List<NodeId> fieldNodeIds )
         {

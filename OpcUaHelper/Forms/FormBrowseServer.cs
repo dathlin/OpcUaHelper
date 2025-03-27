@@ -1,5 +1,9 @@
-﻿using Opc.Ua;
+﻿using Newtonsoft.Json.Linq;
+using Opc.Ua;
 using Opc.Ua.Client;
+using Opc.Ua.Export;
+using Org.BouncyCastle.Asn1.Ocsp;
+using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace OpcUaHelper.Forms
 {
@@ -27,6 +32,7 @@ namespace OpcUaHelper.Forms
 			InitializeComponent();
 			
 			Icon = ClientUtils.GetAppIcon();
+			m_typeImageMapping = new Dictionary<NodeId, string>( );
 		}
 
 		/// <summary>
@@ -118,6 +124,87 @@ namespace OpcUaHelper.Forms
 			}
 		}
 
+		private string GetImageIndex( DataValue dataValue )
+		{
+			if (dataValue == null) return "ClassIcon";
+			if (dataValue.WrappedValue.TypeInfo != null)
+			{
+				if (dataValue.WrappedValue.TypeInfo.ValueRank == ValueRanks.Scalar)
+				{
+					return "Enum_582";
+				}
+				else if (dataValue.WrappedValue.TypeInfo.ValueRank == ValueRanks.OneDimension)
+				{
+					return "brackets";
+				}
+				else if (dataValue.WrappedValue.TypeInfo.ValueRank == ValueRanks.TwoDimensions)
+				{
+					return "Module_648";
+				}
+				else if (dataValue.WrappedValue.TypeInfo.ValueRank == ValueRanks.OneOrMoreDimensions)
+				{
+					return "Module_648";
+				}
+				else
+				{
+					return "ClassIcon";
+				}
+			}
+			return "ClassIcon";
+		}
+
+		/// <summary>
+		/// Returns an image index for the specified attribute.
+		/// </summary>
+		public string GetImageIndex( Session session, NodeClass nodeClass, ExpandedNodeId typeDefinitionId, bool selected, NodeId valueId = null )
+		{
+			if (nodeClass == NodeClass.Variable)
+			{
+				//if (session.NodeCache.IsTypeOf( typeDefinitionId, Opc.Ua.VariableTypeIds.PropertyType ))
+				//{
+				//	return "ClassIcon";
+				//}
+
+				if (valueId != null) return GetImageIndex( m_OpcUaClient.ReadNode( valueId ) );
+
+				return "ClassIcon";
+			}
+
+			if (nodeClass == NodeClass.Object)
+			{
+				if (typeDefinitionId == ObjectIds.ObjectsFolder)
+				{
+					return "VirtualMachine";
+				}
+				else if (session.NodeCache.IsTypeOf( typeDefinitionId, Opc.Ua.ObjectTypeIds.FolderType ))
+				{
+					if (selected)
+					{
+						return "ClassIcon";
+					}
+					else
+					{
+						return "ClassIcon";
+					}
+				}
+
+				return "ClassIcon";
+			}
+
+			if (nodeClass == NodeClass.Method)
+			{
+				return "Method_636";
+			}
+
+			if (nodeClass == NodeClass.View)
+			{
+				return "Method_636";
+			}
+
+			return "ClassIcon";
+		}
+
+
 		private void FormBrowseServer_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			m_OpcUaClient.Disconnect();
@@ -148,19 +235,48 @@ namespace OpcUaHelper.Forms
 		/// <param name="e"></param>
 		private void M_OpcUaClient_ConnectComplete(object sender, EventArgs e)
 		{
+			//try
+			//{
+			//	OpcUaClient client = (OpcUaClient)sender;
+			//	if (client.Connected)
+			//	{
+			//		// populate the browse view.
+			//		PopulateBranch(ObjectIds.ObjectsFolder, BrowseNodesTV.Nodes);
+			//		BrowseNodesTV.Enabled = true;
+			//	}
+			//}
+			//catch (Exception exception)
+			//{
+			//	ClientUtils.HandleException(Text, exception);
+			//}
+
 			try
 			{
-				OpcUaClient client = (OpcUaClient)sender;
-				if (client.Connected)
+				m_session = m_OpcUaClient.Session as Opc.Ua.Client.Session;
+
+				// set a suitable initial state.
+				if (m_session != null)
 				{
-					// populate the browse view.
-					PopulateBranch(ObjectIds.ObjectsFolder, BrowseNodesTV.Nodes);
-					BrowseNodesTV.Enabled = true;
+
+					BrowseDescription nodeToBrowse = new BrowseDescription( );
+
+					nodeToBrowse.NodeId = Opc.Ua.ObjectIds.ViewsFolder;
+					nodeToBrowse.ReferenceTypeId = Opc.Ua.ReferenceTypeIds.HierarchicalReferences;
+					nodeToBrowse.IncludeSubtypes = true;
+					nodeToBrowse.BrowseDirection = BrowseDirection.Forward;
+					nodeToBrowse.NodeClassMask = 0;
+					nodeToBrowse.ResultMask = (uint)BrowseResultMask.All;
+
+					ReferenceDescriptionCollection references = ClientUtils.Browse( m_session, nodeToBrowse, false );
 				}
+
+				// browse the instances in the server.
+				Initialize( m_session, ObjectIds.ObjectsFolder, ReferenceTypeIds.Organizes, ReferenceTypeIds.Aggregates );
+				BrowseNodesTV.Enabled = true;
 			}
 			catch (Exception exception)
 			{
-				ClientUtils.HandleException(Text, exception);
+				ClientUtils.HandleException( this.Text, exception );
 			}
 		}
 
@@ -495,41 +611,35 @@ namespace OpcUaHelper.Forms
 			}
 		}
 
-		private void BrowseNodesTV_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+		private async void BrowseNodesTV_BeforeExpand(object sender, TreeViewCancelEventArgs e)
 		{
-			try
-			{
+			//try
+			//{
 
-				// check if node has already been expanded once.
-				if (e.Node.Nodes.Count != 1)
+			// check if node has already been expanded once.
+			if (e.Node.Nodes.Count != 1)
+			{
+				//return;
+			}
+
+			if (e.Node.Nodes.Count > 0)
+			{
+				if (e.Node.Nodes[0].Text != String.Empty)
 				{
 					return;
 				}
-
-				if (e.Node.Nodes.Count > 0)
-				{
-					if (e.Node.Nodes[0].Text != String.Empty)
-					{
-						return;
-					}
-				}
-
-				// get the source for the node.
-				ReferenceDescription reference = e.Node.Tag as ReferenceDescription;
-
-				if (reference == null || reference.NodeId.IsAbsolute)
-				{
-					e.Cancel = true;
-					return;
-				}
-
-				// populate children.
-				PopulateBranch((NodeId)reference.NodeId, e.Node.Nodes);
 			}
-			catch (Exception exception)
-			{
-				ClientUtils.HandleException(this.Text, exception);
-			}
+
+
+			//	// populate children.
+			// PopulateBranch((NodeId)reference.NodeId, e.Node.Nodes);
+			//}
+			//catch (Exception exception)
+			//{
+			//	ClientUtils.HandleException(this.Text, exception);
+			//}
+
+			BrowseTV_BeforeExpand( sender, e );
 		}
 
 
@@ -1261,5 +1371,262 @@ namespace OpcUaHelper.Forms
 
 
 		#endregion
+
+		#region Browser New Method
+
+		private NodeId[] m_referenceTypeIds;
+		private NodeId m_rootId;
+		private Session m_session;
+		private Dictionary<NodeId, string> m_typeImageMapping;
+		private ViewDescription m_view;
+
+		/// <summary>
+		/// The view to use.
+		/// </summary>
+		public ViewDescription View
+		{
+			get
+			{
+				return m_view;
+			}
+
+			set
+			{
+				m_view = value;
+			}
+		}
+		/// <summary>
+		/// Initializes the control with a root and a set of hierarchial reference types to follow. 
+		/// </summary>
+		/// <param name="session">The session.</param>
+		/// <param name="rootId">The root of the hierarchy to browse.</param>
+		/// <param name="referenceTypeIds">The reference types to follow.</param>
+		public void Initialize(
+		   Session session,
+		   NodeId rootId,
+		   params NodeId[] referenceTypeIds )
+		{
+			// set default root.
+			if (NodeId.IsNull( rootId ))
+			{
+				rootId = Opc.Ua.ObjectIds.ObjectsFolder;
+			}
+
+			// set default reference type.
+			if (referenceTypeIds == null)
+			{
+				referenceTypeIds = new NodeId[] { Opc.Ua.ReferenceTypeIds.HierarchicalReferences };
+			}
+
+			m_rootId = rootId;
+			m_referenceTypeIds = referenceTypeIds;
+
+			// save session.
+			ChangeSession( session, true );
+		}
+
+		/// <summary>
+		/// Changes the session used by the control.
+		/// </summary>
+		private void ChangeSession( Session session, bool refresh )
+		{
+			m_session = session;
+
+			BrowseNodesTV.Nodes.Clear( );
+
+			if (m_session != null)
+			{
+				INode node = m_session.NodeCache.Find( m_rootId );
+
+				if (node != null)
+				{
+					TreeNode root = new TreeNode( node.ToString( ) );
+					root.ImageKey = GetImageIndex( m_session, node.NodeClass, node.TypeDefinitionId, false );
+					root.SelectedImageKey = GetImageIndex( m_session, node.NodeClass, node.TypeDefinitionId, true );
+
+					ReferenceDescription reference = new ReferenceDescription( );
+					reference.NodeId = node.NodeId;
+					reference.NodeClass = node.NodeClass;
+					reference.BrowseName = node.BrowseName;
+					reference.DisplayName = node.DisplayName;
+					reference.TypeDefinition = node.TypeDefinitionId;
+					root.Tag = reference;
+
+					root.Nodes.Add( new TreeNode( ) );
+					BrowseNodesTV.Nodes.Add( root );
+					root.Expand( );
+					BrowseNodesTV.SelectedNode = root;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Handles the BeforeExpand event of the BrowseTV control.
+		/// </summary>
+		private async Task BrowseTV_BeforeExpand( object sender, TreeViewCancelEventArgs e )
+		{
+			try
+			{
+				e.Node.Nodes.Clear( );
+				e.Node.Nodes.Add( new TreeNode( "Browsering...", 7, 7 ) );
+				TreeNode[] listNode = await Task.Run( ( ) =>
+				{
+					Console.WriteLine( "BrowseTV_BeforeExpand, m_referenceTypeIds length: " + m_referenceTypeIds.Length );
+					ReferenceDescription reference = (ReferenceDescription)e.Node.Tag;
+					// build list of references to browse.
+					BrowseDescriptionCollection nodesToBrowse = new BrowseDescriptionCollection( );
+
+					for (int ii = 0; ii < m_referenceTypeIds.Length; ii++)
+					{
+						BrowseDescription nodeToBrowse = new BrowseDescription( );
+
+						nodeToBrowse.NodeId = m_rootId;
+						nodeToBrowse.BrowseDirection = BrowseDirection.Forward;
+						nodeToBrowse.ReferenceTypeId = m_referenceTypeIds[ii];
+						nodeToBrowse.IncludeSubtypes = true;
+						nodeToBrowse.NodeClassMask = 0;
+						nodeToBrowse.ResultMask = (uint)BrowseResultMask.All;
+
+						if (reference != null)
+						{
+							nodeToBrowse.NodeId = (NodeId)reference.NodeId;
+						}
+
+						nodesToBrowse.Add( nodeToBrowse );
+					}
+
+					// add the childen to the control.
+					SortedDictionary<ExpandedNodeId, TreeNode> dictionary = new SortedDictionary<ExpandedNodeId, TreeNode>( );
+
+					Console.WriteLine( " ClientUtils.Browse... " );
+					ReferenceDescriptionCollection references = ClientUtils.Browse( m_session, View, nodesToBrowse, false );
+
+					Console.WriteLine( " ClientUtils.Browse: " + (references == null ? "NULL" : "Count:" + references.Count) );
+					for (int ii = 0; references != null && ii < references.Count; ii++)
+					{
+						reference = references[ii];
+
+						// ignore out of server references.
+						if (reference.NodeId.IsAbsolute)
+						{
+							continue;
+						}
+
+						if (dictionary.ContainsKey( reference.NodeId ))
+						{
+							continue;
+						}
+
+						TreeNode child = new TreeNode( reference.ToString( ) );
+						if (!checkBox1.Checked)
+						{
+							if (GetReferenceDescriptionCollection( (NodeId)reference.NodeId ).Count > 0)
+							{
+								child.Nodes.Add( new TreeNode( ) );
+							}
+						}
+						else
+						{
+							child.Nodes.Add( new TreeNode( ) );
+						}
+						child.Tag = reference;
+
+						if (!reference.TypeDefinition.IsAbsolute)
+						{
+							try
+							{
+								if (!m_typeImageMapping.ContainsKey( (NodeId)reference.TypeDefinition ))
+								{
+									DataValue value = m_session.ReadValue( (NodeId)reference.NodeId );
+									m_typeImageMapping[(NodeId)reference.TypeDefinition] = GetImageIndex( value );
+								}
+							}
+							catch (Exception exception)
+							{
+								Utils.LogError( exception, "Error loading image." );
+							}
+						}
+
+						string index = "ClassIcon";
+						if (!m_typeImageMapping.TryGetValue( (NodeId)reference.TypeDefinition, out index ))
+						{
+							child.ImageKey = GetImageIndex( m_session, reference.NodeClass, reference.TypeDefinition, false );
+							child.SelectedImageKey = GetImageIndex( m_session, reference.NodeClass, reference.TypeDefinition, true );
+						}
+						else
+						{
+							child.ImageKey = index;
+							child.SelectedImageKey = index;
+						}
+
+						dictionary[reference.NodeId] = child;
+					}
+
+					// add nodes to tree.
+					List<TreeNode> list = new List<TreeNode>( );
+					foreach (TreeNode node in dictionary.Values)
+					{
+						list.Add( node );
+					}
+					return list.ToArray( );
+				} );
+
+				e.Node.Nodes.Clear( );
+				e.Node.Nodes.AddRange( listNode.ToArray( ) );
+
+
+			}
+			catch (Exception exception)
+			{
+				ClientUtils.HandleException( this.Text, exception );
+			}
+
+
+			if (checkBox2.Checked)
+			{
+				await Task.Run( ( ) =>
+				{
+					List<TreeNodeOpcValue> list = new List<TreeNodeOpcValue>( );
+					foreach (TreeNode node in e.Node.Nodes)
+					{
+						if (node.Tag is ReferenceDescription reference)
+						{
+							list.Add( new TreeNodeOpcValue( ) { Node = node, NodeId = (NodeId)reference.NodeId } );
+						}
+					}
+					try
+					{
+						m_session.ReadValues( list.Select( m => m.NodeId ).ToList( ), out DataValueCollection collections, out IList<ServiceResult> errors );
+						Invoke( new Action( ( ) =>
+						{
+							for (int i = 0; i < list.Count; i++)
+							{
+								if (Opc.Ua.StatusCode.IsGood( errors[i].StatusCode ))
+								{
+									list[i].Value = collections[i];
+									list[i].Node.ImageKey = GetImageIndex( collections[i] );
+									list[i].Node.SelectedImageKey = GetImageIndex( collections[i] );
+								}
+							}
+						} ) );
+					}
+					catch (Exception ex)
+					{
+						Utils.Trace( ex, "Error loading image." );
+					}
+				} );
+			}
+		}
+
+		#endregion
+	}
+
+	public class TreeNodeOpcValue
+	{
+		public TreeNode Node { get; set; }
+
+		public NodeId NodeId { get; set; }
+
+		public DataValue Value { get; set; }
 	}
 }
